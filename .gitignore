@@ -1,3 +1,7 @@
+###> chieroz ###
+.DS_Store
+/.idea/
+###< chieroz ###
 
 ###> symfony/framework-bundle ###
 /.env.local
