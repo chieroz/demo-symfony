@@ -1,0 +1,112 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}:: {{ title }} ::{% endblock %}
+
+{% block body %}
+    <!-- Page Content-->
+    <section class="py-5">
+        <div class="container px-5">
+            <h1 class="fw-bolder fs-5 mb-4">Blog</h1>
+            <div class="card border-0 shadow rounded-3 overflow-hidden">
+                <div class="card-body p-0">
+                    <div class="row gx-0">
+                        <div class="col-lg-6 col-xl-5 py-lg-5">
+                            <div class="p-4 p-md-5">
+                                <div class="h2 fw-bolder">{{ newest.title }}</div>
+                                <p>{{ newest.content|length > 200 ? newest.content|slice(0, 200) ~ '...' : newest.content }}</p>
+                                <div class="small text-muted mb-3">{{ newest.publishedAt|date("Y-m-d") }}</div>
+                                <a class="stretched-link text-decoration-none" href="{{ path('blog_show', { id: newest.id }) }}">
+                                    Leggi tutto
+                                    <i class="bi bi-arrow-right"></i>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-xl-7">
+                            <div class="bg-featured-blog" style="background-image: url({{ asset('build/images/blog/' ~ newest.image|split('/')|last) }})"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="py-5 bg-light">
+        <div class="container px-5">
+            <div class="row gx-5">
+                <div class="col-xl-8">
+                    <h2 class="fw-bolder fs-5 mb-4">Articoli</h2>
+
+                    {% for article in articles %}
+                        <!-- News item-->
+                        <div class="mb-5">
+                            <div class="small text-muted mb-2">{{ article.publishedAt|date("Y-m-d") }}</div>
+                            <h4>{{ article.title }}</h4>
+                            <p>{{ article.summary }}</p>
+                            <a class="link-dark small" href="#!">Leggi tutto</a>
+                        </div>
+                    {% endfor %}
+                    <div class="text-end mb-5 mb-xl-0">
+                        <a class="text-decoration-none" href="#!">
+                            Archivio articoli
+                            <i class="bi bi-arrow-right"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="col-xl-4">
+                    <div class="card border-0 h-100">
+                        <div class="card-body p-4">
+                            <div class="d-flex h-100 justify-content-center">
+                                <div>
+                                    <div class="h5 fw-bolder mb-4">Et id etiam</div>
+                                    <p class="text-muted mb-4">Conubia cubilia feugiat donec blandit magna litora fermentum congue arcu, risus diam et urna amet egestas nec aenean justo cras, hac vivamus molestie at netus fames scelerisque quam. </p>
+                                    <p class="text-muted mb-4">Phasellus auctor erat quis enim sollicitudin suspendisse tempor dignissim efficitur eleifend nibh, magna consectetur arcu metus mi ligula ultricies congue lorem torquent, nunc nullam curae sit natoque aliquet cubilia imperdiet curabitur finibus.</p>
+                                    <p class="text-muted mb-4">Molestie cursus efficitur inceptos nec rhoncus viverra dapibus, feugiat tortor duis magna sollicitudin ut aliquet, tempor libero leo arcu nulla ex.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Blog preview section-->
+    <section class="py-5">
+        <div class="container px-5">
+            <h2 class="fw-bolder fs-5 mb-4">Ultimi blog</h2>
+            <div class="row gx-5">
+
+                {% for blog in blogs %}
+                    <div class="col-lg-4 mb-5">
+                    <div class="card h-100 shadow border-0">
+                        <img class="card-img-top" src="{{ asset('build/images/blog/' ~ blog.image|split('/')|last) }}" alt="..."/>
+                        <div class="card-body p-4">
+                            <a class="text-decoration-none link-dark stretched-link" href="{{ path('blog_show', { id: blog.id }) }}">
+                                <div class="h5 card-title mb-3">{{ blog.title }}</div>
+                            </a>
+                            <p class="card-text mb-0">{{ blog.content|length > 200 ? blog.content|slice(0, 200) ~ '...' : blog.content }}</p>
+                        </div>
+                        <div class="card-footer p-4 pt-0 bg-transparent border-top-0">
+                            <div class="d-flex align-items-end justify-content-between">
+                                <div class="d-flex align-items-center">
+                                    <img class="rounded-circle me-3" src="{{ asset('build/images/author/' ~ blog.author.avatar|split('/')|last) }}" alt="..."/>
+                                    <div class="small">
+                                        <div class="fw-bold">{{ blog.author.firstName }} {{ blog.author.lastName }}</div>
+                                        <div class="text-muted">{{ blog.publishedAt|date('Y-m-d h:i:s') }}</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+
+            </div>
+            <div class="text-end mb-5 mb-xl-0">
+                <a class="text-decoration-none" href="#!">
+                    Archivio blog
+                    <i class="bi bi-arrow-right"></i>
+                </a>
+            </div>
+        </div>
+    </section>
+    </main>
+{% endblock %}
