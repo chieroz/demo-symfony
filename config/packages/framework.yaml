@@ -17,6 +17,8 @@ framework:
     php_errors:
         log: true
 
+    enabled_locales: ['en', 'it']
+
 when@test:
     framework:
         test: true
